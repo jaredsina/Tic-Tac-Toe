@@ -57,7 +57,7 @@ const Gameboard = (()=>{
             return false
         }
     }
-    return{changeBoard, deleteBoard,displayBoard,getBoard,checkPosition,checkWinner}
+    return{deleteBoard,checkPosition}
 })();
 
 const Player = (name,mark) =>{
@@ -68,5 +68,8 @@ const Player = (name,mark) =>{
 const game = (()=>{
     const playerOne = Player(prompt("Player 1 Name: "),"x");
     const playerTwo = Player(prompt("Player 2 Name: "),"o");
+    Gameboard.checkPosition(0,playerOne.mark);
+    Gameboard.checkPosition(1,playerOne.mark);
+    Gameboard.checkPosition(2,playerOne.mark)
     return{};
 })();
