@@ -11,6 +11,7 @@ const Gameboard = (()=>{
         if(board[position]==""){
             changeBoard(position,mark)
             checkWinner(mark)
+            checkTie();
         }else{
             console.log("Spot Taken");
         }
@@ -19,7 +20,14 @@ const Gameboard = (()=>{
         board = ["","","","","","","","",""]
         displayBoard()
     };
+    const checkTie=()=>{
+        console.log("Checking for tie")
+        if (moves==9){
+            console.log("Its a tie")
+        }
+    }
     const checkWinner=(mark)=>{
+        console.log("Checking for winner")
         if(board[0]==mark&&board[0]==board[1]&& board[1]==board[2]){
             console.log("We have a winner!");
             return true
@@ -45,6 +53,7 @@ const Gameboard = (()=>{
             console.log(("We have a winner"))
             return true
         }else{
+            moves++;
             return false
         }
     }
