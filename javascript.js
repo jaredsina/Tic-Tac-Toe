@@ -73,7 +73,13 @@ const game = (()=>{
     const playerOne = Player(prompt("Player 1 Name: "),"x");
     const playerTwo = Player(prompt("Player 2 Name: "),"o");
     let coinFlip = Math.floor(Math.random()*2);
-    function makeMove(){
+    let player
+    if (coinFlip==0 ){
+        player = playerOne;
+    }else{
+        player = playerTwo;
+    }
+    function makeMove(player){
         gameOver=Gameboard.checkPosition(prompt("Enter a position number 1-9 "),player.mark)
     }
     function restartGame(){
@@ -84,16 +90,14 @@ const game = (()=>{
         }
     }
     function nextTurn(){
-        if (coinFlip==0){
-            player = playerOne;
+        if(player==playerOne){
+            player=playerTwo
         }else{
-            player = playerTwo;
+            player=playerOne
         }
-        coinFlip++
-        coinFlip = coinFlip % 1;
-        makeMove();
     }
     while (gameOver!=true){
+        makeMove();
         nextTurn();
     }
     restartGame();
