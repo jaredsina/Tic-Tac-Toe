@@ -9,18 +9,17 @@ const Gameboard = (()=>{
     }
     const checkPosition=(position,mark)=>{
         if(board[position]==""){
-            changeBoard(position,mark)
-            return checkWinner(mark)
+            changeBoard(position,mark);
+            return checkWinner(mark);
         }else{
-            console.log("Spot Taken");
+            return("error");
         }
     }
     const deleteBoard=()=>{
-        board = ["","","","","","","","",""]
-        displayBoard()
+        board = ["","","","","","","","",""];
+        displayBoard();
     };
     const checkTie=()=>{
-        console.log("Checking for tie")
         if (moves==9){
             console.log("Its a tie")
             return true
@@ -30,7 +29,6 @@ const Gameboard = (()=>{
         
     }
     const checkWinner=(mark)=>{
-        console.log("Checking for winner")
         if(board[0]==mark&&board[0]==board[1]&& board[1]==board[2]){
             console.log("We have a winner!");
             return true
@@ -81,6 +79,9 @@ const game = (()=>{
     }
     function makeMove(player){
         gameOver=Gameboard.checkPosition(prompt("Enter a position number 1-9 "),player.mark)
+        if (gameOver == "error"){
+            makeMove(player);
+        }
     }
     function restartGame(){
         let answer = prompt("Restart Game?y/n")
@@ -97,7 +98,7 @@ const game = (()=>{
         }
     }
     while (gameOver!=true){
-        makeMove();
+        makeMove(player);
         nextTurn();
     }
     restartGame();
