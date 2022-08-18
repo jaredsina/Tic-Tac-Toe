@@ -83,5 +83,18 @@ const game = (()=>{
             gameOver=false;
         }
     }
-    
+    function nextTurn(){
+        if (coinFlip==0){
+            player = playerOne;
+        }else{
+            player = playerTwo;
+        }
+        coinFlip++
+        coinFlip = coinFlip % 1;
+        makeMove();
+    }
+    while (gameOver!=true){
+        nextTurn();
+    }
+    restartGame();
 })();
