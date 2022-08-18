@@ -10,8 +10,7 @@ const Gameboard = (()=>{
     const checkPosition=(position,mark)=>{
         if(board[position]==""){
             changeBoard(position,mark)
-            checkWinner(mark)
-            checkTie();
+            return checkWinner(mark)
         }else{
             console.log("Spot Taken");
         }
@@ -24,7 +23,11 @@ const Gameboard = (()=>{
         console.log("Checking for tie")
         if (moves==9){
             console.log("Its a tie")
+            return true
+        }else{
+            return false
         }
+        
     }
     const checkWinner=(mark)=>{
         console.log("Checking for winner")
@@ -54,7 +57,7 @@ const Gameboard = (()=>{
             return true
         }else{
             moves++;
-            return false
+            return checkTie()
         }
     }
     return{deleteBoard,checkPosition}
@@ -66,10 +69,12 @@ const Player = (name,mark) =>{
 };
 
 const game = (()=>{
+    let gameOver=false;
     const playerOne = Player(prompt("Player 1 Name: "),"x");
     const playerTwo = Player(prompt("Player 2 Name: "),"o");
-    Gameboard.checkPosition(0,playerOne.mark);
-    Gameboard.checkPosition(1,playerOne.mark);
-    Gameboard.checkPosition(2,playerOne.mark)
-    return{};
+    let coinFlip = Math.floor(Math.random()*2);
+    function makeMove(){
+        gameOver=Gameboard.checkPosition(prompt("Enter a position number 1-9 "),player.mark)
+    }
+    
 })();
