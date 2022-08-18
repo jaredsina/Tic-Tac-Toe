@@ -76,5 +76,12 @@ const game = (()=>{
     function makeMove(){
         gameOver=Gameboard.checkPosition(prompt("Enter a position number 1-9 "),player.mark)
     }
+    function restartGame(){
+        let answer = prompt("Restart Game?y/n")
+        if(answer=="y"){
+            Gameboard.deleteBoard()
+            gameOver=false;
+        }
+    }
     
 })();
