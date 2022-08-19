@@ -2,7 +2,15 @@ const Gameboard = (()=>{
     let board =["","","","","","","","",""];
     let moves=0;
     const getBoard = () =>board;
-    const displayBoard= ()=>{console.log(board)}
+    const createBoard = ()=>{
+        const cells = document.querySelectorAll(".cell");
+        cells.forEach((cell)=>{
+            cell.addEventListener('click',()=>game.makeMove(cell.id));
+        });
+    };
+    const displayBoard= ()=>{
+        console.log(board)
+    }
     const changeBoard=(position, mark)=>{
         board.splice(position, 1,mark);
         displayBoard()
@@ -58,7 +66,7 @@ const Gameboard = (()=>{
             return checkTie()
         }
     }
-    return{deleteBoard,checkPosition}
+    return{deleteBoard,checkPosition,createBoard}
 })();
 
 const Player = (name,mark) =>{
@@ -67,7 +75,7 @@ const Player = (name,mark) =>{
 };
 
 const game = (()=>{
-    let gameOver=false;
+    let gameOver=true;
     const playerOne = Player(prompt("Player 1 Name: "),"x");
     const playerTwo = Player(prompt("Player 2 Name: "),"o");
     let coinFlip = Math.floor(Math.random()*2);
@@ -77,11 +85,12 @@ const game = (()=>{
     }else{
         player = playerTwo;
     }
-    function makeMove(player){
-        gameOver=Gameboard.checkPosition(prompt("Enter a position number 1-9 "),player.mark)
-        if (gameOver == "error"){
-            makeMove(player);
+    function makeMove(position){
+        gameOver=Gameboard.checkPosition(position,player.mark)
+        if (gameOver != "error"){
+            nextTurn();
         }
+        
     }
     function restartGame(){
         let answer = prompt("Restart Game?y/n")
@@ -97,9 +106,6 @@ const game = (()=>{
             player=playerOne
         }
     }
-    while (gameOver!=true){
-        makeMove(player);
-        nextTurn();
-    }
-    restartGame();
+    Gameboard.createBoard();
+    return{makeMove}
 })();
