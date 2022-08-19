@@ -1,0 +1,13 @@
+.board{
+    display: grid;
+    gap:10px;
+    grid-template-columns:repeat(3,100px);
+    background-color: aqua;
+    
+}
+.cell{
+    background-color: black;
+    color:white;
+    height: 100px;
+    width:100px;
+}
