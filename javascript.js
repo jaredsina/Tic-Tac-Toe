@@ -3,9 +3,11 @@ const Gameboard = (()=>{
     let moves=0;
     const getBoard = () =>board;
     const displayBoard=()=>{
-        console.log(board);
+        const board = document.querySelector(".board");
+        board.style.display ="grid";
     }
     const createBoard = ()=>{
+        displayBoard();
         const cells = document.querySelectorAll(".cell");
         cells.forEach((cell)=>{
             cell.addEventListener('click',()=>game.makeMove(cell.id));
