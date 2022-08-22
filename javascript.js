@@ -5,21 +5,21 @@ const Gameboard = (()=>{
     const displayBoard=()=>{
         const board = document.querySelector(".board");
         board.style.display ="grid";
-    }
-    const createBoard = ()=>{
-        displayBoard();
         const cells = document.querySelectorAll(".cell");
         cells.forEach((cell)=>{
             cell.addEventListener('click',()=>game.makeMove(cell.id));
         });
-    };
+    }
+
     const hideBoard= ()=>{
         const board = document.querySelector(".board");
         board.style.display ="none";
     }
     const changeBoard=(position, mark)=>{
         board.splice(position, 1,mark);
-        displayBoard()
+        let cell = document.getElementById(position);
+        cell.innerHTML=mark
+        console.log(board)
     }
     const checkPosition=(position,mark)=>{
         if(board[position]==""){
@@ -73,7 +73,7 @@ const Gameboard = (()=>{
             return checkTie()
         }
     }
-    return{deleteBoard,checkPosition,createBoard}
+    return{deleteBoard,checkPosition,displayBoard}
 })();
 
 const Player = (name,mark) =>{
@@ -116,7 +116,7 @@ const game = (()=>{
         }
     }
     function startGame(){
-        Gameboard.createBoard();
+        Gameboard.displayBoard();
     }
     return{makeMove}
 })();
