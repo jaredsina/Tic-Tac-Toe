@@ -21,10 +21,10 @@ const Gameboard = (()=>{
         cell.innerHTML=mark
         console.log(board)
     }
-    const checkPosition=(position,mark)=>{
+    const checkPosition=(position,player)=>{
         if(board[position]==""){
-            changeBoard(position,mark);
-            return checkWinner(mark);
+            changeBoard(position,player.mark);
+            return checkWinner(player);
         }else{
             return("error");
         }
@@ -44,44 +44,48 @@ const Gameboard = (()=>{
         }else{
             return false
         }
-        
     }
-    const checkWinner=(mark)=>{
+    const checkWinner=(player)=>{
+        let mark = player.mark
         if(board[0]==mark&&board[0]==board[1]&& board[1]==board[2]){
-            console.log("We have a winner!");
+            displayWinner(player);
             hideBoard()
             return true
         }else if(board[3]==mark&&board[3]==board[4]&&board[4]==board[5]){
-            console.log("We have a winner")
+            displayWinner(player);
             return true
         }else if(board[6]==mark&&board[6]==board[7]&&board[7]==board[8]){
-            console.log("We have a winner")
+            displayWinner(player);
             return true
         }else if(board[0]==mark&&board[0]==board[3]&&board[3]==board[6]){
-            console.log("We have a winner")
+            displayWinner(player);
             return true
         }else if(board[1]==mark&&board[1]==board[4]&&board[4]==board[7]){
-            console.log("we have a winner")
+            displayWinner(player);
             return true
         }else if(board[2]==mark&&board[2]==board[5]&&board[5]==board[8]){
-            console.log("We have a winner")
+            displayWinner(player);
             return true
         }else if(board[0]==mark&&board[0]==board[4]&&board[4]==board[8]){
-            console.log("We have a winner")
+            displayWinner(player);
             return true
         }else if(board[2]==mark&&board[2]==board[4]&&board[4]==board[6]){
-            console.log(("We have a winner"))
+            displayWinner(player);
             return true
         }else{
             moves++;
             return checkTie()
         }
     }
+    const displayWinner=(player)=>{
+        const message = document.getElementById("message");
+        message.innerHTML=`THE WINNER IS ${player.name}`
+    }
     return{deleteBoard,checkPosition,displayBoard}
 })();
 
 const Player = (name,mark) =>{
-    
+
     return{name,mark}
 };
 
@@ -101,16 +105,15 @@ const game = (()=>{
         player = playerTwo;
     }
     function makeMove(position){
-        gameOver=Gameboard.checkPosition(position,player.mark)
+        gameOver=Gameboard.checkPosition(position,player)
         if (gameOver != "error"){
             nextTurn();
         }if (gameOver==true){
-            resetButton.style.display="block";
+            restartGame();
         }
     }
     function restartGame(){
         Gameboard.deleteBoard();
-        resetButton.style.display="none";
     }
     function nextTurn(){
         if(player==playerOne){
@@ -120,9 +123,8 @@ const game = (()=>{
         }
     }
     function startGame(){
+        restartGame();
         Gameboard.displayBoard();
-        startButton.style.display="none"
-
     }
     return{makeMove}
 })();
