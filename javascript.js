@@ -31,7 +31,11 @@ const Gameboard = (()=>{
     }
     const deleteBoard=()=>{
         board = ["","","","","","","","",""];
-        displayBoard();
+        const cells = document.querySelectorAll(".cell");
+        cells.forEach((cell)=>{
+            cell.innerHTML=""
+        });
+        moves=0;
     };
     const checkTie=()=>{
         if (moves==9){
@@ -82,11 +86,13 @@ const Player = (name,mark) =>{
 };
 
 const game = (()=>{
-    let gameOver=true;
+    let gameOver=false;
     const playerOne = Player(prompt("Player 1 Name: "),"x");
     const playerTwo = Player(prompt("Player 2 Name: "),"o");
     const startButton = document.getElementById("start");
     startButton.addEventListener("click",()=>startGame());
+    const resetButton= document.getElementById('reset');
+    resetButton.addEventListener('click',()=>restartGame());
     let coinFlip = Math.floor(Math.random()*2);
     let player
     if (coinFlip==0 ){
@@ -98,15 +104,13 @@ const game = (()=>{
         gameOver=Gameboard.checkPosition(position,player.mark)
         if (gameOver != "error"){
             nextTurn();
+        }if (gameOver==true){
+            resetButton.style.display="block";
         }
-        
     }
     function restartGame(){
-        let answer = prompt("Restart Game?y/n")
-        if(answer=="y"){
-            Gameboard.deleteBoard()
-            gameOver=false;
-        }
+        Gameboard.deleteBoard();
+        resetButton.style.display="none";
     }
     function nextTurn(){
         if(player==playerOne){
@@ -117,6 +121,8 @@ const game = (()=>{
     }
     function startGame(){
         Gameboard.displayBoard();
+        startButton.style.display="none"
+
     }
     return{makeMove}
 })();
