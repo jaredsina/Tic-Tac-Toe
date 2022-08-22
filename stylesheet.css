@@ -1,9 +1,9 @@
 .board{
-    display: grid;
+    display: none;
     gap:10px;
     grid-template-columns:repeat(3,100px);
     background-color: aqua;
-    
+
 }
 .cell{
     background-color: black;

@@ -85,6 +85,8 @@ const game = (()=>{
     let gameOver=true;
     const playerOne = Player(prompt("Player 1 Name: "),"x");
     const playerTwo = Player(prompt("Player 2 Name: "),"o");
+    const startButton = document.getElementById("start");
+    startButton.addEventListener("click",()=>startGame());
     let coinFlip = Math.floor(Math.random()*2);
     let player
     if (coinFlip==0 ){
@@ -113,6 +115,8 @@ const game = (()=>{
             player=playerOne
         }
     }
-    Gameboard.createBoard();
+    function startGame(){
+        Gameboard.createBoard();
+    }
     return{makeMove}
 })();
