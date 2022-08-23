@@ -39,7 +39,9 @@ const Gameboard = (()=>{
     };
     const checkTie=()=>{
         if (moves==9){
-            console.log("Its a tie")
+            const message = document.getElementById("message");
+            message.innerHTML="It's a tie!";
+
             return true
         }else{
             return false
