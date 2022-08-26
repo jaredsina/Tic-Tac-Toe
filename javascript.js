@@ -51,7 +51,6 @@ const Gameboard = (()=>{
         let mark = player.mark
         if(board[0]==mark&&board[0]==board[1]&& board[1]==board[2]){
             displayWinner(player);
-            hideBoard()
             return true
         }else if(board[3]==mark&&board[3]==board[4]&&board[4]==board[5]){
             displayWinner(player);
@@ -93,8 +92,6 @@ const Player = (name,mark) =>{
 
 const game = (()=>{
     let gameOver=false;
-    const playerOne = Player(prompt("Player 1 Name: "),"x");
-    const playerTwo = Player(prompt("Player 2 Name: "),"o");
     const startButton = document.getElementById("start");
     startButton.addEventListener("click",()=>startGame());
     const resetButton= document.getElementById('reset');
@@ -111,11 +108,13 @@ const game = (()=>{
         if (gameOver != "error"){
             nextTurn();
         }if (gameOver==true){
-            restartGame();
+            
         }
     }
     function restartGame(){
         Gameboard.deleteBoard();
+        const message=document.getElementById("message");
+        message.innerHTML="";
     }
     function nextTurn(){
         if(player==playerOne){
@@ -124,6 +123,7 @@ const game = (()=>{
             player=playerOne
         }
     }
+
     function startGame(){
         restartGame();
         Gameboard.displayBoard();
